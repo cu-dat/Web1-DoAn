@@ -1,0 +1,541 @@
+<!---------------------------------------------------------------- 👤 Administrator --------------------------------------------------------------->
+<div class="tab-pane fade show active" id="pills-home" role="tabpanel">
+    
+    <h1 class="h1 mt-2 ms-3 display-5 fw-bold">Administrator</h1>
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-success ms-3 mt-2" data-bs-toggle="modal" data-bs-target="#addAdminModal">
+      <svg width="22" fill="currentColor" class="bi bi-person-plus-fill mb-1 me-1" viewBox="0 0 16 16">
+        <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+        <path fill-rule="evenodd"
+          d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5" />
+      </svg>
+      Add Administrator
+    </button>
+
+    <!-- ✅ Modal Add Admin -->
+    <div class="modal fade" id="addAdminModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+      <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5 fw-bold">Add Administrator</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <form id="addAdminForm">
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control fw-bold" id="addId" placeholder="ID" value="#AD" required>
+                <label>ID</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control fw-bold" id="addName" placeholder="Fullname" required>
+                <label>Full Name</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="email" class="form-control fw-bold" id="addEmail" placeholder="Email" required>
+                <label>Email Address</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control fw-bold" id="addPhone" placeholder="Phone Number" required>
+                <label>Phone Number</label>
+              </div>
+              <div class="form-floating">
+                <select class="form-select fw-bold" id="addRole" required>
+                  <option value="">Select role</option>
+                  <option value="Administrative manager">Administrative manager</option>
+                  <option value="Product manager">Product manager</option>
+                  <option value="Customer manager">Customer manager</option>
+                  <option value="Order manager">Order manager</option>
+                </select>
+                <label>Role</label>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-success">Add</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <div class="container-fluid">
+      <table class="table table-hover mt-3">
+        <thead class="fs-5">
+          <tr>
+            <th>ID</th>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Status</th>
+            <th>Role</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="adminTableBody"></tbody>
+      </table>
+    </div>
+</div>
+
+<!-- ✅ Shared Edit Modal -->
+<div class="modal fade" id="editAdminModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 fw-bold">Edit Administrator</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="editAdminForm">
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control fw-bold" id="editId" readonly>
+            <label>ID</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control fw-bold" id="editName" required>
+            <label>Full Name</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="email" class="form-control fw-bold" id="editEmail" required>
+            <label>Email Address</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control fw-bold" id="editPhone" required>
+            <label>Phone Number</label>
+          </div>
+          <div class="form-floating mb-3">
+            <select class="form-select fw-bold" id="editRole" required>
+              <option value="Administrative manager">Administrative manager</option>
+              <option value="Product manager">Product manager</option>
+              <option value="Customer manager">Customer manager</option>
+              <option value="Order manager">Order manager</option>
+            </select>
+            <label>Role</label>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-success">Update</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Model Reset Password -->
+< class="modal fade" id="resetPasswordModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 fw-bold">Reset Password</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="resetPasswordForm">
+          <div class="form-floating mb-3">
+            <input type="text" id="resetId" class="form-control fw-bold" readonly>
+            <label>ID</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="password" id="newPassword" class="form-control fw-bold" placeholder="New Password" required>
+            <label>New Password</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="password" id="confirmPassword" class="form-control fw-bold" placeholder="Confirm Password" required>
+            <label>Confirm Password</label>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-warning">Reset</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+   <!------------------------------------------------------------------ 👥 Customer ------------------------------------------------------------------------------->
+<div class="tab-pane fade" id="pills-profile" role="tabpanel">
+  <h1 class="h1 mt-2 ms-3 display-5 fw-bold">Customer</h1>
+
+  <!-- Nút thêm khách hàng -->
+  <button type="button" class="btn btn-success ms-3 mt-2" data-bs-toggle="modal" data-bs-target="#addCustomerModal">
+    <svg width="22" fill="currentColor" class="bi bi-person-plus-fill mb-1 me-1" viewBox="0 0 16 16">
+      <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+      <path fill-rule="evenodd"
+        d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5" />
+    </svg>
+    Add Customer
+  </button>
+
+  <!-- Modal thêm khách hàng -->
+  <div class="modal fade" id="addCustomerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5 fw-bold">Add Customer</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="addCustomerForm">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control fw-bold" id="addName" placeholder="User Name" required>
+              <label>User Name</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="date" class="form-control fw-bold" id="addDob" required>
+              <label>Day Of Birth</label>
+            </div>
+            <div class="form-floating mb-3">
+              <select class="form-select fw-bold" id="addGender" required>
+                <option value="">Select gender</option>
+                <option>Male</option>
+                <option>Female</option>
+              </select>
+              <label>Gender</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="email" class="form-control fw-bold" id="addEmail" placeholder="Email" required>
+              <label>Email Address</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control fw-bold" id="addPhone" placeholder="Phone" required>
+              <label>Phone Number</label>
+            </div>
+            <div class="form-floating">
+              <input type="text" class="form-control fw-bold" id="addAddress" placeholder="Address" required>
+              <label>Address</label>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-success">Add</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bảng danh sách khách hàng -->
+  <div class="container-fluid mt-3">
+    <table class="table table-hover">
+      <thead class="fs-5">
+        <tr>
+          <th>User Name</th>
+          <th>Day Of Birth</th>
+          <th>Gender</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Address</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="customerTableBody"></tbody>
+    </table>
+  </div>
+
+  <!-- Modal edit -->
+  <div class="modal fade" id="editCustomerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5 fw-bold">Edit Customer</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="editCustomerForm">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control fw-bold" id="editName" required>
+              <label>User Name</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="date" class="form-control fw-bold" id="editDob" required>
+              <label>Day Of Birth</label>
+            </div>
+            <div class="form-floating mb-3">
+              <select class="form-select fw-bold" id="editGender" required>
+                <option>Male</option>
+                <option>Female</option>
+              </select>
+              <label>Gender</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="email" class="form-control fw-bold" id="editEmail" required>
+              <label>Email</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control fw-bold" id="editPhone" required>
+              <label>Phone Number</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control fw-bold" id="editAddress" required>
+              <label>Address</label>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-success">Update</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>  
+</div>
+
+<!-- ✅ Modal Reset Password  -->
+<div class="modal fade" id="resetCustomerPasswordModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 fw-bold">Reset Customer Password</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="resetCustomerPasswordForm">
+          <div class="form-floating mb-3">
+            <input type="text" id="resetCustomerEmail" class="form-control fw-bold" readonly>
+            <label>Email</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="password" id="newCustomerPassword" class="form-control fw-bold" placeholder="New Password" required>
+            <label>New Password</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="password" id="confirmCustomerPassword" class="form-control fw-bold" placeholder="Confirm Password" required>
+            <label>Confirm Password</label>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-warning">Reset</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+// ======= Mở modal reset password ======= 
+function openReset(index) {
+  const admin = admins[index];
+  document.getElementById("resetId").value = admin.id;
+  document.getElementById("resetPasswordForm").setAttribute("data-index", index);
+  new bootstrap.Modal(document.getElementById("resetPasswordModal")).show();
+}
+
+// ======= Xử lý reset mật khẩu =======
+document.getElementById("resetPasswordForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const i = e.target.getAttribute("data-index");
+  const newPass = document.getElementById("newPassword").value;
+  const confirmPass = document.getElementById("confirmPassword").value;
+
+  if (newPass !== confirmPass) {
+    alert("❌ Mật khẩu xác nhận không khớp!");
+    return;
+  }
+
+  // Giả lập lưu mật khẩu mới (ở thực tế sẽ gửi request đến server)
+  admins[i].password = newPass;
+  alert(`✅ Đã reset mật khẩu cho ${admins[i].name}`);
+  bootstrap.Modal.getInstance(document.getElementById("resetPasswordModal")).hide();
+  e.target.reset();
+});
+</script>
+
+<script>
+  // ======= Data mẫu =======
+  let admins = [
+    { id: "#AD01", name: "Nguyen Minh Quan", email: "admin1@gmail.com", phone: "0123456789", status: "Active", role: "Administrative manager" },
+    { id: "#AD02", name: "Huynh Le Hoang Tuan", email: "admin2@gmail.com", phone: "0123456789", status: "Active", role: "Product manager" },
+    { id: "#AD03", name: "Nguyen Huynh Truc Lam", email: "admin3@gmail.com", phone: "0123456789", status: "Blocked", role: "Customer manager" }
+  ];
+
+  // ======= Render danh sách =======
+function renderAdmins() {
+  const tbody = document.getElementById("adminTableBody");
+  tbody.innerHTML = admins.map((a, i) => `
+    <tr>
+      <td>${a.id}</td>
+      <td>${a.name}</td>
+      <td>${a.email}</td>
+      <td>${a.phone}</td>
+      <td><span class="badge ${a.status === "Active" ? "text-bg-success" : "text-bg-danger"} rounded-pill">${a.status}</span></td>
+      <td>${a.role}</td>
+      <td>
+        <button class="btn btn-primary btn-sm me-1" onclick="openEdit(${i})">Edit</button>
+        <button class="btn btn-warning btn-sm me-1" onclick="openReset(${i})">Reset Password</button>
+        <button class="btn ${a.status === "Active" ? "btn-danger" : "btn-success"} btn-sm" onclick="toggleStatus(${i})">
+          ${a.status === "Active" ? "Block" : "Unblock"}
+        </button>
+      </td>
+    </tr>
+  `).join("");
+}
+
+
+  // ======= Thêm admin =======
+  document.getElementById("addAdminForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const newAdmin = {
+      id: document.getElementById("addId").value,
+      name: document.getElementById("addName").value,
+      email: document.getElementById("addEmail").value,
+      phone: document.getElementById("addPhone").value,
+      status: "Active",
+      role: document.getElementById("addRole").value
+    };
+    admins.push(newAdmin);
+    bootstrap.Modal.getInstance(document.getElementById("addAdminModal")).hide();
+    e.target.reset();
+    renderAdmins();
+  });
+
+  // ======= Mở modal edit =======
+  function openEdit(index) {
+    const admin = admins[index];
+    document.getElementById("editId").value = admin.id;
+    document.getElementById("editName").value = admin.name;
+    document.getElementById("editEmail").value = admin.email;
+    document.getElementById("editPhone").value = admin.phone;
+    document.getElementById("editRole").value = admin.role;
+    document.getElementById("editAdminForm").setAttribute("data-index", index);
+    new bootstrap.Modal(document.getElementById("editAdminModal")).show();
+  }
+
+  // ======= Cập nhật admin =======
+  document.getElementById("editAdminForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const i = e.target.getAttribute("data-index");
+    admins[i] = {
+      ...admins[i],
+      name: document.getElementById("editName").value,
+      email: document.getElementById("editEmail").value,
+      phone: document.getElementById("editPhone").value,
+      role: document.getElementById("editRole").value
+    };
+    bootstrap.Modal.getInstance(document.getElementById("editAdminModal")).hide();
+    renderAdmins();
+  });
+
+  // ======= Block / Unblock =======
+  function toggleStatus(index) {
+    admins[index].status = admins[index].status === "Active" ? "Blocked" : "Active";
+    renderAdmins();
+  }
+
+  // ======= Init =======
+  renderAdmins();
+</script>
+<script>
+  // ========== DỮ LIỆU MẪU ==========
+  let customers = [
+    { name: "SkyWind", dob: "2000-07-21", gender: "Male", email: "skywind@gmail.com", phone: "0123456789", address: "123 NTH, Gò Vấp", status: "Active" },
+    { name: "Anna", dob: "2001-05-12", gender: "Female", email: "anna@gmail.com", phone: "0987654321", address: "45 LTK, Q1", status: "Blocked" }
+  ];
+
+  // ========== RENDER BẢNG ==========
+  function renderCustomers() {
+    const tbody = document.getElementById("customerTableBody");
+    tbody.innerHTML = customers.map((c, i) => `
+      <tr>
+        <td>${c.name}</td>
+        <td>${c.dob}</td>
+        <td>${c.gender}</td>
+        <td>${c.email}</td>
+        <td>${c.phone}</td>
+        <td>${c.address}</td>
+        <td><span class="badge ${c.status === "Active" ? "text-bg-success" : "text-bg-danger"}">${c.status}</span></td>
+        <td>
+          <button class="btn btn-primary btn-sm me-1" onclick="openEditCustomer(${i})">Edit</button>
+          <button class="btn btn-warning btn-sm me-1" onclick="openResetCustomer(${i})">Reset Password</button>
+          <button class="btn ${c.status === "Active" ? "btn-danger" : "btn-success"} btn-sm" onclick="toggleCustomerStatus(${i})">
+            ${c.status === "Active" ? "Block" : "Unblock"}
+          </button>
+        </td>
+      </tr>
+    `).join("");
+  }
+
+  // ========== THÊM KHÁCH HÀNG ==========
+  document.getElementById("addCustomerForm").addEventListener("submit", e => {
+    e.preventDefault();
+    const newC = {
+      name: addName.value,
+      dob: addDob.value,
+      gender: addGender.value,
+      email: addEmail.value,
+      phone: addPhone.value,
+      address: addAddress.value,
+      status: "Active"
+    };
+    customers.push(newC);
+    e.target.reset();
+    bootstrap.Modal.getInstance(document.getElementById("addCustomerModal")).hide();
+    renderCustomers();
+  });
+
+  // ========== SỬA KHÁCH HÀNG ==========
+  function openEditCustomer(i) {
+    const c = customers[i];
+    editName.value = c.name;
+    editDob.value = c.dob;
+    editGender.value = c.gender;
+    editEmail.value = c.email;
+    editPhone.value = c.phone;
+    editAddress.value = c.address;
+    editCustomerForm.setAttribute("data-index", i);
+    new bootstrap.Modal(editCustomerModal).show();
+  }
+
+  document.getElementById("editCustomerForm").addEventListener("submit", e => {
+    e.preventDefault();
+    const i = e.target.getAttribute("data-index");
+    customers[i] = {
+      ...customers[i],
+      name: editName.value,
+      dob: editDob.value,
+      gender: editGender.value,
+      email: editEmail.value,
+      phone: editPhone.value,
+      address: editAddress.value
+    };
+    bootstrap.Modal.getInstance(editCustomerModal).hide();
+    renderCustomers();
+  });
+
+  // ========== KHÓA / MỞ KHÓA ==========
+  function toggleCustomerStatus(i) {
+    customers[i].status = customers[i].status === "Active" ? "Blocked" : "Active";
+    renderCustomers();
+  }
+
+  // ========== MỞ MODAL RESET PASSWORD ==========
+  function openResetCustomer(i) {
+    const c = customers[i];
+    document.getElementById("resetCustomerEmail").value = c.email;
+    document.getElementById("resetCustomerPasswordForm").setAttribute("data-index", i);
+    new bootstrap.Modal(document.getElementById("resetCustomerPasswordModal")).show();
+  }
+
+  // ========== XỬ LÝ RESET PASSWORD ==========
+  document.getElementById("resetCustomerPasswordForm").addEventListener("submit", e => {
+    e.preventDefault();
+    const i = e.target.getAttribute("data-index");
+    const newPass = document.getElementById("newCustomerPassword").value;
+    const confirmPass = document.getElementById("confirmCustomerPassword").value;
+
+    if (newPass !== confirmPass) {
+      alert("❌ Mật khẩu xác nhận không khớp!");
+      return;
+    }
+
+    // Giả lập lưu mật khẩu (ở thực tế sẽ gửi request)
+    customers[i].password = newPass;
+    alert(`✅ Đã reset mật khẩu cho ${customers[i].email}`);
+
+    bootstrap.Modal.getInstance(document.getElementById("resetCustomerPasswordModal")).hide();
+    e.target.reset();
+  });
+
+  // ========== KHỞI TẠO ==========
+  renderCustomers();
+</script>

@@ -1,0 +1,1797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+
+<style>
+    /* =============================
+   🌟 DASHBOARD GLOBAL STYLE
+   ============================= */
+
+/* --- Reset cơ bản --- */
+body {
+  margin: 0;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  background-color: #f8f9fa;
+  color: #212529;
+}
+
+/* --- Navbar --- */
+.navbar {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  background-color: #ffffff !important;
+}
+
+.nav-pills .nav-link {
+  color: #000;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .nav-link:hover {
+  background-color: #6c757d;
+  color: #fff !important;
+}
+
+/* --- Tab content layout --- */
+.tab-content {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+.tab-pane {
+  background-color: #fff;
+  border-radius: 10px;
+  margin: 1rem 2rem;
+  padding: 1.5rem 2rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  min-height: 70vh;
+}
+
+/* --- Tiêu đề từng tab --- */
+.tab-pane h1.display-5 {
+  margin-top: 0.5rem !important;
+  margin-bottom: 1rem !important;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #212529;
+}
+
+/* --- Buttons --- */
+.btn {
+  border-radius: 6px;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn:hover {
+  opacity: 0.9;
+  transform: scale(0.98);
+}
+
+.btn-success {
+  background-color: #198754;
+  border: none;
+}
+
+.btn-primary {
+  background-color: #0d6efd;
+  border: none;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border: none;
+}
+
+.btn-warning {
+  background-color: #ffc107;
+  border: none;
+  color: #000;
+}
+
+/* --- Badge trạng thái --- */
+.badge {
+  font-size: 0.85rem;
+  padding: 0.45em 0.8em;
+  border-radius: 30px;
+}
+
+/* --- Table --- */
+.table {
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.table th {
+  background-color: #f1f3f5;
+  color: #212529;
+  font-weight: 600;
+}
+
+.table th,
+.table td {
+  vertical-align: middle !important;
+  text-align: left;
+}
+
+.table img {
+  border-radius: 8px;
+  border: 1px solid #dee2e6;
+  background: #f8f9fa;
+  padding: 2px;
+  width: 80px;
+  height: auto;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+/* --- Modal --- */
+.modal-content {
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+  background: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.modal-title {
+  font-weight: 700;
+  color: #212529;
+}
+
+.form-floating > label {
+  color: #6c757d;
+}
+
+/* --- Input focus effect --- */
+.form-control:focus,
+.form-select:focus {
+  border-color: #198754;
+  box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.25);
+}
+
+/* --- Responsive tweaks --- */
+@media (max-width: 992px) {
+  .tab-pane {
+    margin: 0.5rem 1rem;
+    padding: 1rem;
+  }
+  .tab-pane h1.display-5 {
+    font-size: 1.75rem;
+  }
+  .table th,
+  .table td {
+    font-size: 0.9rem;
+  }
+  .btn {
+    font-size: 0.85rem;
+    padding: 0.35rem 0.65rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar-brand img {
+    width: 50px;
+  }
+  .tab-pane {
+    margin: 0.5rem;
+    padding: 1rem;
+  }
+  .tab-pane h1 {
+    font-size: 1.6rem;
+  }
+}
+
+/* --- Custom scrollbar cho modal --- */
+.modal-dialog-scrollable .modal-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modal-dialog-scrollable .modal-body::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+}
+
+</style>
+<body>
+   <nav class="navbar navbar-expand-lg bg-light shadow-sm py-2">
+  <div class="container-fluid px-4">
+
+
+<nav class="navbar navbar-expand-lg bg-light border-bottom shadow-sm py-2">
+  <div class="container-fluid">
+    <!-- Logo -->
+    <a class="navbar-brand d-flex align-items-center ms-2" href="#">
+      <span class="fw-bold fs-5 text-primary">Admin Panel</span>
+    </a>
+
+    <!-- Toggle Button -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain"
+      aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Main Menu -->
+    <div class="collapse navbar-collapse justify-content-center" id="navbarMain">
+  <ul class="navbar-nav nav nav-pills" id="pills-tab" role="tablist">
+
+    <!-- Administrator -->
+    <li class="nav-item px-2" role="presentation">
+      <button class="nav-link active fw-semibold px-3" id="pills-home-tab" data-bs-toggle="pill"
+        data-bs-target="#pills-home" type="button" role="tab">
+        <i class="bi bi-person-badge me-1"></i>Administrator
+      </button>
+    </li>
+
+    <!-- Customer -->
+    <li class="nav-item px-2" role="presentation">
+      <button class="nav-link fw-semibold px-3" id="pills-profile-tab" data-bs-toggle="pill"
+        data-bs-target="#pills-profile" type="button" role="tab">
+        <i class="bi bi-people me-1"></i>Customer
+      </button>
+    </li>
+
+    <!-- ✅ Product (tab chính bao toàn bộ Type/List/Import/Price) -->
+    <li class="nav-item px-2" role="presentation">
+      <button class="nav-link fw-semibold px-3" id="pills-product-tab" data-bs-toggle="pill"
+        data-bs-target="#pills-product" type="button" role="tab">
+        <i class="bi bi-box-seam me-1"></i>Product
+      </button>
+    </li>
+
+    <!-- Orders -->
+    <li class="nav-item px-2" role="presentation">
+      <button class="nav-link fw-semibold px-3" id="pills-order-tab" data-bs-toggle="pill"
+        data-bs-target="#pills-order" type="button" role="tab">
+        <i class="bi bi-receipt me-1"></i>Order
+      </button>
+    </li>
+
+    <!-- Inventory -->
+    <li class="nav-item px-2" role="presentation">
+      <button class="nav-link fw-semibold px-3" id="pills-stock-tab" data-bs-toggle="pill"
+        data-bs-target="#pills-stock" type="button" role="tab">
+        <i class="bi bi-boxes me-1"></i>Inventory
+      </button>
+    </li>
+  </ul>
+</div>
+
+<!-- User Info -->
+<div class="d-flex align-items-center me-3">
+  <span class="badge bg-success fs-6 me-3">Hello, Admin</span>
+  <a href="AdminLogin.html" class="text-danger fw-bold text-decoration-none d-flex align-items-center">
+    <i class="bi bi-box-arrow-right me-1"></i>Logout
+  </a>
+</div>
+
+</nav>
+
+
+  </div>
+</nav>
+  <div class="tab-content" id="pills-tabContent">
+<!---------------------------------------------------------------- 👤 Administrator --------------------------------------------------------------->
+<div class="tab-pane fade show active" id="pills-home" role="tabpanel">
+    
+    <h1 class="h1 mt-2 ms-3 display-5 fw-bold">Administrator</h1>
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-success ms-3 mt-2" data-bs-toggle="modal" data-bs-target="#addAdminModal">
+      <svg width="22" fill="currentColor" class="bi bi-person-plus-fill mb-1 me-1" viewBox="0 0 16 16">
+        <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+        <path fill-rule="evenodd"
+          d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5" />
+      </svg>
+      Add Administrator
+    </button>
+
+    <!-- ✅ Modal Add Admin -->
+    <div class="modal fade" id="addAdminModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+      <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5 fw-bold">Add Administrator</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <form id="addAdminForm">
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control fw-bold" id="addId" placeholder="ID" value="#AD" required>
+                <label>ID</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control fw-bold" id="addName" placeholder="Fullname" required>
+                <label>Full Name</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="email" class="form-control fw-bold" id="addEmail" placeholder="Email" required>
+                <label>Email Address</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control fw-bold" id="addPhone" placeholder="Phone Number" required>
+                <label>Phone Number</label>
+              </div>
+              <div class="form-floating">
+                <select class="form-select fw-bold" id="addRole" required>
+                  <option value="">Select role</option>
+                  <option value="Administrative manager">Administrative manager</option>
+                  <option value="Product manager">Product manager</option>
+                  <option value="Customer manager">Customer manager</option>
+                  <option value="Order manager">Order manager</option>
+                </select>
+                <label>Role</label>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-success">Add</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <div class="container-fluid">
+      <table class="table table-hover mt-3">
+        <thead class="fs-5">
+          <tr>
+            <th>ID</th>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Status</th>
+            <th>Role</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="adminTableBody"></tbody>
+      </table>
+    </div>
+</div>
+
+<!-- ✅ Shared Edit Modal -->
+<div class="modal fade" id="editAdminModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 fw-bold">Edit Administrator</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="editAdminForm">
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control fw-bold" id="editId" readonly>
+            <label>ID</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control fw-bold" id="editName" required>
+            <label>Full Name</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="email" class="form-control fw-bold" id="editEmail" required>
+            <label>Email Address</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control fw-bold" id="editPhone" required>
+            <label>Phone Number</label>
+          </div>
+          <div class="form-floating mb-3">
+            <select class="form-select fw-bold" id="editRole" required>
+              <option value="Administrative manager">Administrative manager</option>
+              <option value="Product manager">Product manager</option>
+              <option value="Customer manager">Customer manager</option>
+              <option value="Order manager">Order manager</option>
+            </select>
+            <label>Role</label>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-success">Update</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Model Reset Password -->
+<div class="modal fade" id="resetPasswordModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 fw-bold">Reset Password</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="resetPasswordForm">
+          <div class="form-floating mb-3">
+            <input type="text" id="resetId" class="form-control fw-bold" readonly>
+            <label>ID</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="password" id="newPassword" class="form-control fw-bold" placeholder="New Password" required>
+            <label>New Password</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="password" id="confirmPassword" class="form-control fw-bold" placeholder="Confirm Password" required>
+            <label>Confirm Password</label>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-warning">Reset</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+   <!------------------------------------------------------------------ 👥 Customer ------------------------------------------------------------------------------->
+<div class="tab-pane fade" id="pills-profile" role="tabpanel">
+  <h1 class="h1 mt-2 ms-3 display-5 fw-bold">Customer</h1>
+
+  <!-- Nút mở modal thêm khách hàng -->
+  <button class="btn btn-success ms-3 mt-2" data-bs-toggle="modal" data-bs-target="#addCustomerModal">
+    <svg width="22" fill="currentColor" class="bi bi-person-plus-fill mb-1 me-1" viewBox="0 0 16 16">
+      <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+      <path fill-rule="evenodd"
+        d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5" />
+    </svg>
+    Add Customer
+  </button>
+
+  <!-- Modal: Add Customer -->
+  <div class="modal fade" id="addCustomerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h1 class="modal-title fs-5 fw-bold">Add Customer</h1>
+          <button class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+        <div class="modal-body">
+          <form id="addCustomerForm">
+            <div class="form-floating mb-3">
+              <input type="text" id="addName" class="form-control fw-bold" required>
+              <label>User Name</label>
+            </div>
+
+            <div class="form-floating mb-3">
+              <input type="date" id="addDob" class="form-control fw-bold" required>
+              <label>Day Of Birth</label>
+            </div>
+
+            <div class="form-floating mb-3">
+              <select id="addGender" class="form-select fw-bold" required>
+                <option value="">Select gender</option>
+                <option>Male</option>
+                <option>Female</option>
+              </select>
+              <label>Gender</label>
+            </div>
+
+            <div class="form-floating mb-3">
+              <input type="email" id="addEmail" class="form-control fw-bold" required>
+              <label>Email</label>
+            </div>
+
+            <div class="form-floating mb-3">
+              <input type="text" id="addPhone" class="form-control fw-bold" required>
+              <label>Phone Number</label>
+            </div>
+
+            <div class="form-floating">
+              <input type="text" id="addAddress" class="form-control fw-bold" required>
+              <label>Address</label>
+            </div>
+          </form>
+        </div>
+
+        <!-- Footer phải nằm ngoài form -->
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" form="addCustomerForm" class="btn btn-success">Add</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Danh sách khách hàng -->
+  <div class="container-fluid mt-3">
+    <table class="table table-hover">
+      <thead class="fs-5">
+        <tr>
+          <th>User Name</th>
+          <th>Day Of Birth</th>
+          <th>Gender</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Address</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody id="customerTableBody"></tbody>
+    </table>
+  </div>
+
+  <!-- Modal: Edit Customer -->
+  <div class="modal fade" id="editCustomerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h1 class="modal-title fs-5 fw-bold">Edit Customer</h1>
+          <button class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+        <div class="modal-body">
+          <form id="editCustomerForm">
+            <div class="form-floating mb-3">
+              <input type="text" id="editName" class="form-control fw-bold" required>
+              <label>User Name</label>
+            </div>
+
+            <div class="form-floating mb-3">
+              <input type="date" id="editDob" class="form-control fw-bold" required>
+              <label>Day Of Birth</label>
+            </div>
+
+            <div class="form-floating mb-3">
+              <select id="editGender" class="form-select fw-bold" required>
+                <option>Male</option>
+                <option>Female</option>
+              </select>
+              <label>Gender</label>
+            </div>
+
+            <div class="form-floating mb-3">
+              <input type="email" id="editEmail" class="form-control fw-bold" required>
+              <label>Email</label>
+            </div>
+
+            <div class="form-floating mb-3">
+              <input type="text" id="editPhone" class="form-control fw-bold" required>
+              <label>Phone Number</label>
+            </div>
+
+            <div class="form-floating mb-3">
+              <input type="text" id="editAddress" class="form-control fw-bold" required>
+              <label>Address</label>
+            </div>
+          </form>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" form="editCustomerForm" class="btn btn-success">Update</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Modal: Reset Customer Password -->
+<div class="modal fade" id="resetCustomerPasswordModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 fw-bold">Reset Customer Password</h1>
+        <button class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <form id="resetCustomerPasswordForm">
+
+          <div class="form-floating mb-3">
+            <input type="text" id="resetCustomerEmail" class="form-control fw-bold" readonly>
+            <label>Email</label>
+          </div>
+
+          <div class="form-floating mb-3">
+            <input type="password" id="newCustomerPassword" class="form-control fw-bold" required>
+            <label>New Password</label>
+          </div>
+
+          <div class="form-floating mb-3">
+            <input type="password" id="confirmCustomerPassword" class="form-control fw-bold" required>
+            <label>Confirm Password</label>
+          </div>
+
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" form="resetCustomerPasswordForm" class="btn btn-warning">Reset</button>
+      </div>
+
+    </div>
+  </div>
+</div>  
+
+<!---------------------------------------------------------------- 🧩 PRODUCT MANAGEMENT ------------------------------------------------------------------->
+ <style>
+    /* 🌈 TOÀN TRANG */
+    body {
+      background-color: #f8f9fa;
+      font-family: "Segoe UI", sans-serif;
+      color: #333;
+    }
+
+    h3.fw-bold {
+      color: #198754;
+    }
+
+    /* 🧩 Tabs trên cùng */
+    .nav-tabs .nav-link {
+      font-weight: 600;
+      color: #555;
+      border-radius: .5rem .5rem 0 0;
+    }
+    .nav-tabs .nav-link.active {
+      background-color: #198754;
+      color: white;
+    }
+
+    /* 📋 Bảng dữ liệu */
+    table.table {
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    thead.table-light th {
+      background: #e9ecef !important;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+    }
+    tbody tr:hover {
+      background-color: #f6fef9 !important;
+      transition: 0.2s;
+    }
+    td, th {
+      vertical-align: middle !important;
+    }
+
+    /* 🧱 Nút hành động */
+    .btn-sm {
+      padding: 4px 10px;
+      font-size: 0.8rem;
+      border-radius: 0.4rem;
+    }
+    .btn-success, .btn-warning, .btn-primary, .btn-danger {
+      box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+      transition: 0.2s;
+    }
+    .btn-success:hover { background-color: #157347; }
+    .btn-warning:hover { background-color: #e0a800; color: white; }
+    .btn-danger:hover { background-color: #bb2d3b; }
+    .btn-primary:hover { background-color: #0a58ca; }
+
+    /* 🪟 Modal */
+    .modal-content {
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+    .modal-header {
+      border-bottom: none;
+    }
+    .modal-title {
+      font-weight: 600;
+    }
+    .modal-footer {
+      border-top: none;
+    }
+
+    /* 🖼️ Ảnh sản phẩm */
+    img.rounded-3 {
+      object-fit: cover;
+      border: 1px solid #dee2e6;
+      padding: 2px;
+      background-color: #fff;
+    }
+
+    /* 🏷️ Badge trạng thái */
+    .badge {
+      font-size: 0.8rem;
+      padding: 6px 10px;
+    }
+
+    /* 🔢 Input và Select */
+    .form-control, .form-select {
+      border-radius: 0.5rem;
+      box-shadow: none !important;
+      border: 1px solid #ced4da;
+    }
+    .form-control:focus, .form-select:focus {
+      border-color: #198754;
+      box-shadow: 0 0 0 0.15rem rgba(25,135,84,0.25);
+    }
+
+    /* 🧾 Tab nội dung */
+    .tab-pane {
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ⚙️ Table container */
+    .table-responsive {
+      border-radius: 0.6rem;
+      overflow: hidden;
+    }
+  </style>
+<div class="tab-pane fade" id="pills-product" role="tabpanel">
+
+  <!-- Tabs con -->
+  <ul class="nav nav-tabs mt-3" id="productSubTabs" role="tablist">
+    <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#productType" type="button">Product Types</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#productList" type="button">Product List</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#productImport" type="button">Import Receipts</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#productPrice" type="button">Selling Prices</button></li>
+  </ul>
+
+  <!-- Nội dung tab con -->
+  <div class="tab-content mt-3" id="productSubTabContent">
+
+    <!-- 🧱 PRODUCT TYPE -->
+    <div class="tab-pane fade show active" id="productType" role="tabpanel">
+      <h3 class="fw-bold mt-2">Product Type Management</h3>
+      <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addTypeModal">Add Type</button>
+
+      <div class="table-responsive shadow-sm rounded-3 border bg-white">
+        <table class="table table-hover align-middle mb-0">
+          <thead class="table-light text-center text-secondary">
+            <tr><th>ID</th><th>Name</th><th>Description</th><th>Status</th><th>Action</th></tr>
+          </thead>
+          <tbody id="typeTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 🧾 PRODUCT LIST -->
+    <div class="tab-pane fade" id="productList" role="tabpanel">
+      <h3 class="fw-bold mt-2">Product List</h3>
+      <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addProductModal">Add Product</button>
+
+      <div class="table-responsive shadow-sm rounded-3 border bg-white">
+        <table class="table table-hover align-middle mb-0">
+          <thead class="table-light text-center text-secondary">
+            <tr><th>Code</th><th>Name</th><th>Type</th><th>Price</th><th>Picture</th><th>Status</th><th>Action</th></tr>
+          </thead>
+          <tbody id="productTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+    <!-- ✅ MODALS -->
+  <!-- Add Type -->
+  <div class="modal fade" id="addTypeModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-success text-white">
+          <h5 class="modal-title">Add Product Type</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <form id="addTypeForm">
+          <div class="modal-body">
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Type Name</label>
+              <input type="text" id="typeName" class="form-control" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Description</label>
+              <textarea id="typeDesc" class="form-control" rows="2"></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button class="btn btn-success" type="submit">Add</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Type -->
+  <div class="modal fade" id="editTypeModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-warning text-white">
+          <h5 class="modal-title">Edit Product Type</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <form id="editTypeForm">
+          <div class="modal-body">
+            <input type="hidden" id="editTypeIndex">
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Type Name</label>
+              <input type="text" id="editTypeName" class="form-control" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Description</label>
+              <textarea id="editTypeDesc" class="form-control" rows="2"></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button class="btn btn-warning" type="submit">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Product -->
+  <div class="modal fade" id="addProductModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-success text-white">
+          <h5 class="modal-title">Add New Product</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <form id="addProductForm">
+          <div class="modal-body">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">Product Type</label>
+                <select id="productTypeSelect" class="form-select" required></select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">Product Code</label>
+                <input type="text" id="productCode" class="form-control" required>
+              </div>
+              <div class="col-md-12">
+                <label class="form-label fw-semibold">Product Name</label>
+                <input type="text" id="productName" class="form-control" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">Price ($)</label>
+                <input type="number" id="productPrice" class="form-control" required>
+              </div>
+              <div class="col-md-6">
+                <label for="productImage" class="form-label fw-semibold">Product Image</label>
+                <input type="file" id="productImage" class="form-control" accept="image/*">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-success">Add Product</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Product -->
+  <div class="modal fade" id="editProductModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-warning text-white">
+          <h5 class="modal-title">Edit Product</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <form id="editProductForm">
+          <div class="modal-body">
+            <input type="hidden" id="editProductIndex">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">Product Type</label>
+                <select id="editProductTypeSelect" class="form-select" required></select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">Product Code</label>
+                <input type="text" id="editProductCode" class="form-control" required>
+              </div>
+              <div class="col-md-12">
+                <label class="form-label fw-semibold">Product Name</label>
+                <input type="text" id="editProductName" class="form-control" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">Price ($)</label>
+                <input type="number" id="editProductPrice" class="form-control" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">Product Image</label>
+                <input type="file" id="editProductImage" class="form-control" accept="image/*">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-warning">Save Changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+<!-- ================= IMPORT RECEIPTS (FULL) ================= -->
+<div class="tab-pane fade" id="productImport" role="tabpanel">
+  <div class="container py-3">
+
+    <h3 class="fw-bold mb-3 text-success">Product Import Management</h3>
+
+    <!-- Search + Add -->
+    <div class="d-flex justify-content-between mb-3">
+      <input type="text" id="searchImport" class="form-control w-50"
+             placeholder="Search by code, date, or product name...">
+      <button id="btnAddImport" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#importModal">+ Add Receipt</button>
+    </div>
+
+    <!-- Table -->
+    <div class="table-responsive shadow-sm rounded border bg-white">
+      <table class="table table-hover align-middle text-center mb-0">
+        <thead class="table-light text-secondary">
+          <tr>
+            <th>Receipt ID</th>
+            <th>Date</th>
+            <th>Product Name</th>
+            <th>Item Count</th>
+            <th>Total (USD)</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="importTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+    <!-- Modal: Add / Edit -->
+    <div class="modal fade" id="importModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+          <div class="modal-header bg-success text-white">
+            <h5 class="modal-title" id="importModalTitle">Add Receipt</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+          <div class="modal-body">
+            <form id="importForm" onsubmit="return false;">
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label class="form-label fw-bold">Import Date</label>
+                  <input type="date" id="importDate" class="form-control" required>
+                </div>
+              </div>
+
+              <h6 class="fw-bold mt-3">Product List</h6>
+              <table class="table table-bordered align-middle text-center mb-2">
+                <thead class="table-light">
+                  <tr>
+                    <th style="width:55%;">Product</th>
+                    <th style="width:15%;">Quantity</th>
+                    <th style="width:20%;">Import Price (USD)</th>
+                    <th style="width:10%;"></th>
+                  </tr>
+                </thead>
+                <tbody id="productInputBody"></tbody>
+              </table>
+
+              <div class="d-flex gap-2">
+                <button type="button" class="btn btn-outline-primary" id="addProductRow">+ Add Product Row</button>
+                <button type="button" class="btn btn-outline-secondary" id="clearProductRows">Clear All Rows</button>
+              </div>
+            </form>
+          </div>
+
+          <div class="modal-footer">
+            <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button class="btn btn-success" id="saveImport">Save Receipt</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- 🏷️ SELLING PRICES -->
+<div class="tab-pane fade" id="productPrice" role="tabpanel">
+  <div class="container mt-3">
+    <h4 class="fw-bold mb-3 text-success">Selling Price</h4>
+
+    <!-- Search / Filter -->
+    <div class="row mb-3">
+      <div class="col-md-4">
+        <input id="searchName" class="form-control" placeholder="Search by product name...">
+      </div>
+
+      <div class="col-md-3">
+        <select id="searchType" class="form-select">
+          <option value="">-- Filter by type --</option>
+          <option>Kaspa Miner</option>
+          <option>Bitcoin Miner</option>
+          <option>Accessories</option>
+        </select>
+      </div>
+
+      <div class="col-md-2">
+        <button class="btn btn-primary w-100" onclick="renderPrices()">Search</button>
+      </div>
+    </div>
+
+    <table class="table table-bordered table-hover align-middle">
+      <thead class="table-light text-center">
+        <tr>
+          <th>Product Type</th>
+          <th>Product Name</th>
+          <th>Cost Price ($)</th>
+          <th>Profit (%)</th>
+          <th>Selling Price ($)</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="priceTableBody"></tbody>
+    </table>
+    </div>
+  </div>
+
+  </div>
+</div>
+<!---------------------------------------------------------------------------- 🧾 Orders ------------------------------------------------------------------------------------>
+    <div class="tab-pane fade" id="pills-order" role="tabpanel">
+  <h1 class="h1 mt-2 ms-3 display-5 fw-bold">Order Management</h1>
+
+    <!-- 🔍 Bộ lọc -->
+    <div class="container-fluid mt-4 mb-3">
+      <div class="row g-2">
+        <div class="col-md-3">
+          <input type="date" id="startDate" class="form-control" placeholder="From Date">
+        </div>
+        <div class="col-md-3">
+          <input type="date" id="endDate" class="form-control" placeholder="To Date">
+        </div>
+        <div class="col-md-3">
+          <select id="filterStatus" class="form-select">
+            <option value="">All Status</option>
+            <option value="New">New</option>
+            <option value="Confirmed">Confirmed</option>
+            <option value="Delivered">Delivered</option>
+            <option value="Cancelled">Cancelled</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <button class="btn btn-primary w-100" onclick="filterOrders()">Filter Orders</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🧾 Danh sách đơn hàng -->
+    <div class="container-fluid mt-3">
+      <div class="table-responsive shadow-sm rounded-3 border bg-white">
+        <table class="table table-hover align-middle mb-0">
+          <thead class="table-light text-center text-secondary">
+            <tr>
+              <th>Order ID</th>
+              <th>Customer</th>
+              <th>Address</th>
+              <th>Order Date</th>
+              <th>Delivery Date</th>
+              <th>Total</th>
+              <th>Status</th>
+              <th>Details</th>
+              <th>Edit</th>
+            </tr>
+          </thead>
+          <tbody id="orderTableBody"></tbody>
+        </table>
+      </div>
+    </div>  
+  </div>
+
+ <!--------------------------------------------------------------------------- 📦 Inventory -------------------------------------------------------------------------------->
+    <div class="tab-pane fade" id="pills-stock" role="tabpanel">
+  <h1 class="h1 mt-2 ms-3 display-5 fw-bold">Inventory Management</h1>
+
+    <!-- ⚙ Bộ lọc -->
+    <div class="container-fluid mt-3">
+      <div class="row g-2">
+        <div class="col-md-4">
+          <select id="stockTypeFilter" class="form-select">
+            <option value="">All Categories</option>
+            <option value="Kaspa Miner">Kaspa Miner</option>
+            <option value="Bitcoin Miner">Bitcoin Miner</option>
+            <option value="Accessories">Accessories</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <input type="text" id="stockSearch" class="form-control" placeholder="Search by product name...">
+        </div>
+        <div class="col-md-4">
+          <button class="btn btn-primary w-100" onclick="filterStock()">Filter</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 📦 Bảng tồn kho -->
+    <div class="container-fluid mt-3">
+      <div class="table-responsive shadow-sm rounded-3 border bg-white">
+        <table class="table table-hover align-middle mb-0">
+          <thead class="table-light text-center text-secondary">
+            <tr>
+              <th>Product</th>
+              <th>Category</th>
+              <th>In Stock</th>
+              <th>Imported</th>
+              <th>Sold</th>
+              <th>Alert</th>
+            </tr>
+          </thead>
+          <tbody id="stockTableBody"></tbody>
+        </table>
+      </div>
+    </div>  
+  </div>
+  
+<!----------------------------------------------------------Script---------------------------------------------------------------------------------->
+<script>
+// ======= Mở modal reset password ======= 
+function openReset(index) {
+  const admin = admins[index];
+  document.getElementById("resetId").value = admin.id;
+  document.getElementById("resetPasswordForm").setAttribute("data-index", index);
+  new bootstrap.Modal(document.getElementById("resetPasswordModal")).show();
+}
+
+// ======= Xử lý reset mật khẩu =======
+document.getElementById("resetPasswordForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const i = e.target.getAttribute("data-index");
+  const newPass = document.getElementById("newPassword").value;
+  const confirmPass = document.getElementById("confirmPassword").value;
+
+  if (newPass !== confirmPass) {
+    alert("❌ Mật khẩu xác nhận không khớp!");
+    return;
+  }
+
+  // Giả lập lưu mật khẩu mới (ở thực tế sẽ gửi request đến server)
+  admins[i].password = newPass;
+  alert(`✅ Đã reset mật khẩu cho ${admins[i].name}`);
+  bootstrap.Modal.getInstance(document.getElementById("resetPasswordModal")).hide();
+  e.target.reset();
+});
+</script>
+
+<script>
+  // ======= Data mẫu =======
+  let admins = [
+    { id: "#AD01", name: "Nguyen Minh Quan", email: "admin1@gmail.com", phone: "0123456789", status: "Active", role: "Administrative manager" },
+    { id: "#AD02", name: "Huynh Le Hoang Tuan", email: "admin2@gmail.com", phone: "0123456789", status: "Active", role: "Product manager" },
+    { id: "#AD03", name: "Nguyen Huynh Truc Lam", email: "admin3@gmail.com", phone: "0123456789", status: "Blocked", role: "Customer manager" }
+  ];
+
+  // ======= Render danh sách =======
+function renderAdmins() {
+  const tbody = document.getElementById("adminTableBody");
+  tbody.innerHTML = admins.map((a, i) => `
+    <tr>
+      <td>${a.id}</td>
+      <td>${a.name}</td>
+      <td>${a.email}</td>
+      <td>${a.phone}</td>
+      <td><span class="badge ${a.status === "Active" ? "text-bg-success" : "text-bg-danger"} rounded-pill">${a.status}</span></td>
+      <td>${a.role}</td>
+      <td>
+        <button class="btn btn-primary btn-sm me-1" onclick="openEdit(${i})">Edit</button>
+        <button class="btn btn-warning btn-sm me-1" onclick="openReset(${i})">Reset Password</button>
+        <button class="btn ${a.status === "Active" ? "btn-danger" : "btn-success"} btn-sm" onclick="toggleStatus(${i})">
+          ${a.status === "Active" ? "Block" : "Unblock"}
+        </button>
+      </td>
+    </tr>
+  `).join("");
+}
+
+
+  // ======= Thêm admin =======
+  document.getElementById("addAdminForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const newAdmin = {
+      id: document.getElementById("addId").value,
+      name: document.getElementById("addName").value,
+      email: document.getElementById("addEmail").value,
+      phone: document.getElementById("addPhone").value,
+      status: "Active",
+      role: document.getElementById("addRole").value
+    };
+    admins.push(newAdmin);
+    bootstrap.Modal.getInstance(document.getElementById("addAdminModal")).hide();
+    e.target.reset();
+    renderAdmins();
+  });
+
+  // ======= Mở modal edit =======
+  function openEdit(index) {
+    const admin = admins[index];
+    document.getElementById("editId").value = admin.id;
+    document.getElementById("editName").value = admin.name;
+    document.getElementById("editEmail").value = admin.email;
+    document.getElementById("editPhone").value = admin.phone;
+    document.getElementById("editRole").value = admin.role;
+    document.getElementById("editAdminForm").setAttribute("data-index", index);
+    new bootstrap.Modal(document.getElementById("editAdminModal")).show();
+  }
+
+  // ======= Cập nhật admin =======
+  document.getElementById("editAdminForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const i = e.target.getAttribute("data-index");
+    admins[i] = {
+      ...admins[i],
+      name: document.getElementById("editName").value,
+      email: document.getElementById("editEmail").value,
+      phone: document.getElementById("editPhone").value,
+      role: document.getElementById("editRole").value
+    };
+    bootstrap.Modal.getInstance(document.getElementById("editAdminModal")).hide();
+    renderAdmins();
+  });
+
+  // ======= Block / Unblock =======
+  function toggleStatus(index) {
+    admins[index].status = admins[index].status === "Active" ? "Blocked" : "Active";
+    renderAdmins();
+  }
+
+  // ======= Init =======
+  renderAdmins();
+</script>
+<script>
+  // ========== DỮ LIỆU MẪU ==========
+  let customers = [
+    { name: "SkyWind", dob: "2000-07-21", gender: "Male", email: "skywind@gmail.com", phone: "0123456789", address: "123 NTH, Gò Vấp", status: "Active" },
+    { name: "Anna", dob: "2001-05-12", gender: "Female", email: "anna@gmail.com", phone: "0987654321", address: "45 LTK, Q1", status: "Blocked" }
+  ];
+
+  // ========== RENDER BẢNG ==========
+  function renderCustomers() {
+    const tbody = document.getElementById("customerTableBody");
+    tbody.innerHTML = customers.map((c, i) => `
+      <tr>
+        <td>${c.name}</td>
+        <td>${c.dob}</td>
+        <td>${c.gender}</td>
+        <td>${c.email}</td>
+        <td>${c.phone}</td>
+        <td>${c.address}</td>
+        <td><span class="badge ${c.status === "Active" ? "text-bg-success" : "text-bg-danger"}">${c.status}</span></td>
+        <td>
+          <button class="btn btn-primary btn-sm me-1" onclick="openEditCustomer(${i})">Edit</button>
+          <button class="btn btn-warning btn-sm me-1" onclick="openResetCustomer(${i})">Reset Password</button>
+          <button class="btn ${c.status === "Active" ? "btn-danger" : "btn-success"} btn-sm" onclick="toggleCustomerStatus(${i})">
+            ${c.status === "Active" ? "Block" : "Unblock"}
+          </button>
+        </td>
+      </tr>
+    `).join("");
+  }
+
+  // ========== THÊM KHÁCH HÀNG ==========
+  document.getElementById("addCustomerForm").addEventListener("submit", e => {
+    e.preventDefault();
+    const newC = {
+      name: addName.value,
+      dob: addDob.value,
+      gender: addGender.value,
+      email: addEmail.value,
+      phone: addPhone.value,
+      address: addAddress.value,
+      status: "Active"
+    };
+    customers.push(newC);
+    e.target.reset();
+    bootstrap.Modal.getInstance(document.getElementById("addCustomerModal")).hide();
+    renderCustomers();
+  });
+
+  // ========== SỬA KHÁCH HÀNG ==========
+  function openEditCustomer(i) {
+    const c = customers[i];
+    editName.value = c.name;
+    editDob.value = c.dob;
+    editGender.value = c.gender;
+    editEmail.value = c.email;
+    editPhone.value = c.phone;
+    editAddress.value = c.address;
+    editCustomerForm.setAttribute("data-index", i);
+    new bootstrap.Modal(editCustomerModal).show();
+  }
+
+  document.getElementById("editCustomerForm").addEventListener("submit", e => {
+    e.preventDefault();
+    const i = e.target.getAttribute("data-index");
+    customers[i] = {
+      ...customers[i],
+      name: editName.value,
+      dob: editDob.value,
+      gender: editGender.value,
+      email: editEmail.value,
+      phone: editPhone.value,
+      address: editAddress.value
+    };
+    bootstrap.Modal.getInstance(editCustomerModal).hide();
+    renderCustomers();
+  });
+
+  // ========== KHÓA / MỞ KHÓA ==========
+  function toggleCustomerStatus(i) {
+    customers[i].status = customers[i].status === "Active" ? "Blocked" : "Active";
+    renderCustomers();
+  }
+
+  // ========== MỞ MODAL RESET PASSWORD ==========
+  function openResetCustomer(i) {
+    const c = customers[i];
+    document.getElementById("resetCustomerEmail").value = c.email;
+    document.getElementById("resetCustomerPasswordForm").setAttribute("data-index", i);
+    new bootstrap.Modal(document.getElementById("resetCustomerPasswordModal")).show();
+  }
+
+  // ========== XỬ LÝ RESET PASSWORD ==========
+  document.getElementById("resetCustomerPasswordForm").addEventListener("submit", e => {
+    e.preventDefault();
+    const i = e.target.getAttribute("data-index");
+    const newPass = document.getElementById("newCustomerPassword").value;
+    const confirmPass = document.getElementById("confirmCustomerPassword").value;
+
+    if (newPass !== confirmPass) {
+      alert("❌ Mật khẩu xác nhận không khớp!");
+      return;
+    }
+
+    // Giả lập lưu mật khẩu (ở thực tế sẽ gửi request)
+    customers[i].password = newPass;
+    alert(`✅ Đã reset mật khẩu cho ${customers[i].email}`);
+
+    bootstrap.Modal.getInstance(document.getElementById("resetCustomerPasswordModal")).hide();
+    e.target.reset();
+  });
+
+  // ========== KHỞI TẠO ==========
+  renderCustomers();
+</script>
+<!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+  let productTypes = [
+    { id: "#T001", name: "Kaspa Miner", desc: "KAS mining equipment", status: "Active" },
+    { id: "#T002", name: "Bitcoin Miner", desc: "BTC ASIC miner devices", status: "Active" },
+    { id: "#T003", name: "Accessories", desc: "Cables, adapters, and cooling fans", status: "Hidden" }
+  ];
+
+  let products = [
+    { code: "#IRKASKS0PRO", name: "ICERIVER KAS KS0 PRO", type: "Kaspa Miner", price: 499, img: "img/KS0PRO.jpg", status: "Active" },
+    { code: "#IRKASKS1", name: "ICERIVER KAS KS1", type: "Kaspa Miner", price: 899, img: "img/KS1.jpg", status: "Hidden" },
+    { code: "#BITM003", name: "Bitmain Antminer S19 Pro", type: "Bitcoin Miner", price: 2950, img: "img/S19PRO.jpg", status: "Active" },
+    { code: "#ACC01", name: "6-Pin Power Cable", type: "Accessories", price: 19, img: "img/cable.jpg", status: "Active" }
+  ];
+
+  let profitRates = [
+    { type: "Kaspa Miner", profit: 15 },
+    { type: "Bitcoin Miner", profit: 20 },
+    { type: "Accessories", profit: 30 }
+  ];
+
+  function renderTypes() {
+    const body = document.getElementById("typeTableBody");
+    body.innerHTML = productTypes.map((t,i)=>`
+      <tr class="text-center">
+        <td>${t.id}</td><td>${t.name}</td><td>${t.desc}</td>
+        <td><span class="badge ${t.status==="Active"?"text-bg-success":"text-bg-secondary"}">${t.status}</span></td>
+        <td>
+          <button class="btn btn-primary btn-sm" onclick="editType(${i})">Edit</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteType(${i})">Delete</button>
+          <button class="btn ${t.status==="Active"?"btn-warning":"btn-success"} btn-sm" onclick="toggleType(${i})">${t.status==="Active"?"Hide":"Show"}</button>
+        </td>
+      </tr>`).join('');
+    renderTypeOptions();
+    renderEditTypeOptions();
+  }
+
+  function renderTypeOptions(){
+    const select = document.getElementById("productTypeSelect");
+    if(!select) return;
+    select.innerHTML = '<option value="">-- Select Type --</option>' +
+      productTypes.map(t=>`<option value="${t.name}">${t.name}</option>`).join('');
+  }
+
+  function renderEditTypeOptions(){
+    const select = document.getElementById("editProductTypeSelect");
+    if(!select) return;
+    select.innerHTML = productTypes.map(t=>`<option value="${t.name}">${t.name}</option>`).join('');
+  }
+
+  function renderProducts(){
+    const body = document.getElementById("productTableBody");
+    body.innerHTML = products.map((p,i)=>`
+      <tr class="text-center">
+        <td>${p.code}</td><td>${p.name}</td><td>${p.type}</td>
+        <td>$${p.price}</td>
+        <td><img src="${p.img}" width="70" height="60" class="rounded-3 shadow-sm"></td>
+        <td><span class="badge ${p.status==="Active"?"text-bg-success":"text-bg-secondary"}">${p.status}</span></td>
+        <td>
+          <button class="btn btn-primary btn-sm" onclick="editProduct(${i})">Edit</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteProduct(${i})">Delete</button>
+          <button class="btn ${p.status==="Active"?"btn-warning":"btn-success"} btn-sm" onclick="toggleProduct(${i})">${p.status==="Active"?"Hide":"Show"}</button>
+        </td>
+      </tr>`).join('');
+  }
+
+  function renderImports(){
+    const body = document.getElementById("importTableBody");
+    body.innerHTML = imports.map((im,i)=>`
+      <tr class="text-center">
+        <td>${im.id}</td><td>${im.date}</td><td>${im.items}</td><td>$${im.total}</td>
+        <td><span class="badge ${im.status==="Done"?"text-bg-success":"text-bg-warning"}">${im.status}</span></td>
+        <td><button class="btn btn-danger btn-sm" onclick="deleteImport(${i})">Delete</button></td>
+      </tr>`).join('');
+  }
+
+function renderPrices() {
+  const body = document.getElementById("priceTableBody");
+  const searchName = document.getElementById("searchName")?.value.toLowerCase() || "";
+  const searchType = document.getElementById("searchType")?.value || "";
+
+  body.innerHTML = "";
+
+  profitRates.forEach((p, i) => {
+
+    // --- Filter products by type ---
+    let filtered = products.filter(prod => prod.type === p.type);
+
+    // --- Search by name ---
+    if (searchName) {
+      filtered = filtered.filter(prod =>
+        prod.name.toLowerCase().includes(searchName)
+      );
+    }
+
+    // --- Search by product type ---
+    if (searchType) {
+      filtered = filtered.filter(prod => prod.type === searchType);
+    }
+
+    // If no product matches after filters
+    if (filtered.length === 0) return;
+
+    filtered.forEach((prod, j) => {
+      const sellingPrice = (prod.price * (1 + p.profit / 100)).toFixed(2);
+
+      body.innerHTML += `
+      <tr class="text-center">
+        <td>${p.type}</td>
+        <td>${prod.name}</td>
+        <td>$${prod.price}</td>
+
+        <td>
+          <input 
+            type="number" 
+            id="profit-${i}-${j}"
+            class="form-control form-control-sm w-50 d-inline" 
+            value="${p.profit}" 
+            min="0">
+          %
+        </td>
+
+        <td>$${sellingPrice}</td>
+
+        <td>
+          <button class="btn btn-success btn-sm" onclick="updateProfit(${i})">
+            Save
+          </button>
+        </td>
+      </tr>
+      `;
+    });
+  });
+}
+
+
+// ===== UPDATE PROFIT =====
+function updateProfit(i) {
+  const inputs = document.querySelectorAll(`[id^='profit-${i}-']`);
+  if (inputs.length === 0) return;
+
+  const newProfit = parseFloat(inputs[0].value);
+
+  if (isNaN(newProfit) || newProfit < 0) {
+    alert("Invalid profit value!");
+    return;
+  }
+
+  profitRates[i].profit = newProfit;
+  renderPrices();
+}
+
+// ===== INITIAL RENDER =====
+renderPrices();
+
+
+
+  /* ===== ACTIONS ===== */
+  function deleteType(i){ if(confirm("Delete type?")){ productTypes.splice(i,1); renderTypes(); } }
+  function toggleType(i){ productTypes[i].status = productTypes[i].status==="Active"?"Hidden":"Active"; renderTypes(); }
+
+  function deleteProduct(i){ if(confirm("Delete product?")){ products.splice(i,1); renderProducts(); } }
+  function toggleProduct(i){ products[i].status = products[i].status==="Active"?"Hidden":"Active"; renderProducts(); }
+
+  function deleteImport(i){ if(confirm("Delete import?")){ imports.splice(i,1); renderImports(); } }
+
+  /* ===== EDIT FUNCTIONS ===== */
+  function editType(i){
+    document.getElementById("editTypeIndex").value = i;
+    document.getElementById("editTypeName").value = productTypes[i].name;
+    document.getElementById("editTypeDesc").value = productTypes[i].desc;
+    new bootstrap.Modal(document.getElementById("editTypeModal")).show();
+  }
+
+  document.getElementById("editTypeForm").addEventListener("submit",e=>{
+    e.preventDefault();
+    const i = document.getElementById("editTypeIndex").value;
+    productTypes[i].name = document.getElementById("editTypeName").value.trim();
+    productTypes[i].desc = document.getElementById("editTypeDesc").value.trim();
+    renderTypes();
+    bootstrap.Modal.getInstance(document.getElementById("editTypeModal")).hide();
+  });
+
+  function editProduct(i){
+    document.getElementById("editProductIndex").value = i;
+    document.getElementById("editProductCode").value = products[i].code;
+    document.getElementById("editProductName").value = products[i].name;
+    document.getElementById("editProductPrice").value = products[i].price;
+    renderEditTypeOptions();
+    document.getElementById("editProductTypeSelect").value = products[i].type;
+    new bootstrap.Modal(document.getElementById("editProductModal")).show();
+  }
+
+  document.getElementById("editProductForm").addEventListener("submit",e=>{
+    e.preventDefault();
+    const i = document.getElementById("editProductIndex").value;
+    products[i].code = document.getElementById("editProductCode").value.trim();
+    products[i].name = document.getElementById("editProductName").value.trim();
+    products[i].type = document.getElementById("editProductTypeSelect").value;
+    products[i].price = parseFloat(document.getElementById("editProductPrice").value);
+    const imgInput = document.getElementById("editProductImage");
+    if(imgInput.files[0]) products[i].img = URL.createObjectURL(imgInput.files[0]);
+    renderProducts();
+    bootstrap.Modal.getInstance(document.getElementById("editProductModal")).hide();
+  });
+
+  /* ===== FORM EVENTS ===== */
+  document.getElementById("addTypeForm").addEventListener("submit",e=>{
+    e.preventDefault();
+    const name=document.getElementById("typeName").value.trim();
+    const desc=document.getElementById("typeDesc").value.trim();
+    if(name){
+      productTypes.push({id:"#T"+String(productTypes.length+1).padStart(3,"0"),name,desc,status:"Active"});
+      renderTypes();
+      e.target.reset();
+      bootstrap.Modal.getInstance(document.getElementById("addTypeModal")).hide();
+    }
+  });
+
+  document.getElementById("addProductForm").addEventListener("submit",e=>{
+    e.preventDefault();
+    const type=document.getElementById("productTypeSelect").value;
+    const code=document.getElementById("productCode").value.trim();
+    const name=document.getElementById("productName").value.trim();
+    const price=parseFloat(document.getElementById("productPrice").value);
+    const imgInput=document.getElementById("productImage");
+    const img=imgInput.files[0]?URL.createObjectURL(imgInput.files[0]):"img/default.jpg";
+    if(type&&code&&name){
+      products.push({code,name,type,price,img,status:"Active"});
+      renderProducts();
+      e.target.reset();
+      bootstrap.Modal.getInstance(document.getElementById("addProductModal")).hide();
+    }
+  });
+
+  /* ===== INIT ===== */
+  document.addEventListener("DOMContentLoaded",()=>{
+    renderTypes(); renderProducts(); renderImports();
+    const priceTab = document.querySelector('[data-bs-target="#productPrice"]');
+    if(priceTab){ priceTab.addEventListener("shown.bs.tab",()=>renderPrices()); }
+  });
+  </script>
+  <script>
+  // ===================== DỮ LIỆU GIẢ LẬP =====================
+  let orders = [
+    {
+      id: "#ORD001",
+      customer: "Skywind",
+      address: "123 Nguyen Thuong Hien, Ho Chi Minh City",
+      orderDate: "2025-10-02",
+      deliveryDate: "2025-10-05",
+      total: 4598,
+      status: "Delivered",
+      details: [
+        { name: "ICERIVER KAS KS0 PRO", qty: 1, price: 499, img: "img/KS0PRO.jpg" },
+        { name: "BITMAIN ANTMINER S21", qty: 1, price: 4099, img: "img/BMS21.jpg" },
+      ],
+    },
+    {
+      id: "#ORD002",
+      customer: "Anna Nguyen",
+      address: "45 Le Loi, District 1",
+      orderDate: "2025-10-15",
+      deliveryDate: "2025-10-20",
+      total: 2950,
+      status: "Confirmed",
+      details: [{ name: "Bitmain Antminer S19 Pro", qty: 1, price: 2950, img: "img/S19PRO.jpg" }],
+    },
+    {
+      id: "#ORD003",
+      customer: "Minh Tran",
+      address: "56 Tran Phu, Da Nang",
+      orderDate: "2025-10-25",
+      deliveryDate: "",
+      total: 499,
+      status: "New",
+      details: [{ name: "ICERIVER KAS KS0 PRO", qty: 1, price: 499, img: "img/KS0PRO.jpg" }],
+    },
+  ];
+
+  let stock = [
+    { product: "ICERIVER KAS KS0 PRO", category: "Kaspa Miner", stock: 3, imported: 20, sold: 17 },
+    { product: "ICERIVER KAS KS1", category: "Kaspa Miner", stock: 10, imported: 15, sold: 5 },
+    { product: "Bitmain Antminer S19 Pro", category: "Bitcoin Miner", stock: 4, imported: 10, sold: 6 },
+    { product: "6-Pin Power Cable", category: "Accessories", stock: 25, imported: 30, sold: 5 },
+  ];
+
+  // ===================== HIỂN THỊ ĐƠN HÀNG =====================
+  function renderOrders() {
+    const tbody = document.getElementById("orderTableBody");
+    tbody.innerHTML = orders.map((o, i) => `
+      <tr class="text-center align-middle">
+        <td>${o.id}</td>
+        <td>${o.customer}</td>
+        <td>${o.address}</td>
+        <td>${o.orderDate}</td>
+        <td>${o.deliveryDate || "-"}</td>
+        <td>$${o.total.toLocaleString()}</td>
+        <td><span class="badge ${getStatusClass(o.status)}">${o.status}</span></td>
+        <td><button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#detailModal" onclick="showOrderDetail(${i})">Details</button></td>
+        <td>
+          <select class="form-select form-select-sm" onchange="changeStatus(${i}, this.value)">
+            <option value="">Change</option>
+            <option>New</option>
+            <option>Confirmed</option>
+            <option>Delivered</option>
+            <option>Cancelled</option>
+          </select>
+        </td>
+      </tr>
+    `).join("");
+  }
+
+  function getStatusClass(status) {
+    switch(status){
+      case "New": return "text-bg-primary";
+      case "Confirmed": return "text-bg-warning";
+      case "Delivered": return "text-bg-success";
+      case "Cancelled": return "text-bg-danger";
+      default: return "text-bg-secondary";
+    }
+  }
+
+  function changeStatus(index, newStatus){
+    if(!newStatus) return;
+    orders[index].status = newStatus;
+    renderOrders();
+  }
+
+  // ===================== MODAL CHI TIẾT =====================
+  function showOrderDetail(index) {
+    const o = orders[index];
+    const modalBody = document.getElementById("orderDetailBody");
+    document.getElementById("orderDetailTitle").innerText = `${o.id} - ${o.customer}`;
+    document.getElementById("orderDetailStatus").innerText = o.status;
+    document.getElementById("orderDetailStatus").className = "badge " + getStatusClass(o.status);
+
+    modalBody.innerHTML = o.details.map(
+      d => `
+        <tr>
+          <td><img src="${d.img}" width="70" class="rounded"></td>
+          <td>${d.name}</td>
+          <td>${d.qty}</td>
+          <td>$${d.price}</td>
+        </tr>`
+    ).join("");
+    document.getElementById("orderTotal").innerText = `$${o.total.toLocaleString()}`;
+  }
+
+  // ===================== LỌC ĐƠN HÀNG =====================
+  function filterOrders(){
+    const start = document.getElementById("startDate").value;
+    const end = document.getElementById("endDate").value;
+    const status = document.getElementById("filterStatus").value;
+    let filtered = [...orders];
+    if(start) filtered = filtered.filter(o => o.orderDate >= start);
+    if(end) filtered = filtered.filter(o => o.orderDate <= end);
+    if(status) filtered = filtered.filter(o => o.status === status);
+    document.getElementById("orderTableBody").innerHTML = filtered.map((o, i) => `
+      <tr class="text-center align-middle">
+        <td>${o.id}</td><td>${o.customer}</td><td>${o.address}</td>
+        <td>${o.orderDate}</td><td>${o.deliveryDate || "-"}</td>
+        <td>$${o.total}</td><td><span class="badge ${getStatusClass(o.status)}">${o.status}</span></td>
+        <td><button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#detailModal" onclick="showOrderDetail(${i})">Details</button></td>
+        <td>-</td>
+      </tr>`).join("");
+  }
+
+  // ===================== HIỂN THỊ TỒN KHO =====================
+  function renderStock(){
+    const tbody = document.getElementById("stockTableBody");
+    tbody.innerHTML = stock.map(s => `
+      <tr class="text-center ${s.stock < 5 ? 'table-warning' : ''}">
+        <td>${s.product}</td>
+        <td>${s.category}</td>
+        <td>${s.stock}</td>
+        <td>${s.imported}</td>
+        <td>${s.sold}</td>
+        <td>${s.stock < 5 ? '<span class="badge text-bg-danger">Low stock</span>' : '<span class="badge text-bg-success">OK</span>'}</td>
+      </tr>`).join("");
+  }
+
+  function filterStock(){
+    const type = document.getElementById("stockTypeFilter").value;
+    const search = document.getElementById("stockSearch").value.toLowerCase();
+    let filtered = stock.filter(s => (!type || s.category === type) && (!search || s.product.toLowerCase().includes(search)));
+    document.getElementById("stockTableBody").innerHTML = filtered.map(s => `
+      <tr class="text-center ${s.stock < 5 ? 'table-warning' : ''}">
+        <td>${s.product}</td><td>${s.category}</td><td>${s.stock}</td><td>${s.imported}</td><td>${s.sold}</td>
+        <td>${s.stock < 5 ? '<span class="badge text-bg-danger">Low stock</span>' : '<span class="badge text-bg-success">OK</span>'}</td>
+      </tr>`).join("");
+  }
+
+  // ===================== KHỞI TẠO =====================
+  renderOrders();
+  renderStock();
+  </script>
+
+  <!-- 🔹 Modal Chi tiết đơn hàng -->
+  <div class="modal fade" id="detailModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 id="orderDetailTitle" class="modal-title fw-bold"></h5>
+          <span id="orderDetailStatus" class="badge"></span>
+          <button class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <table class="table align-middle">
+            <thead><tr><th>Image</th><th>Product</th><th>Qty</th><th>Price</th></tr></thead>
+            <tbody id="orderDetailBody"></tbody>
+          </table>
+          <div class="text-end fw-bold h4 mt-2">Total: <span id="orderTotal"></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+      </div>  
+  <script src="js/bootstrap.bundle.min.js">
+  </script>    
+  </body>
+  </html>
+

@@ -8,20 +8,31 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
 <script>
-   function search() {
-        // Lấy giá trị từ trường input
-        var searchValue = document.getElementById("searchInput").value;
-      
-        // In giá trị đã nhập ra console (hoặc bạn có thể thực hiện bất kỳ xử lý nào khác với giá trị này)
-       window.location.href='search-user.html'
-       alert("Please wait for a moment");
+      function search() {
+        var searchValue = document.getElementById("searchInput").value.trim();
 
-        // Thực hiện các bước tìm kiếm khác nếu cần
-        // ...
+        // Lưu từ khóa
+        localStorage.setItem("searchKeyword", searchValue);
 
-        // Ngăn chặn form submit mặc định (nếu không bạn sẽ thấy trang web bị làm mới)
+        alert("Please wait for a moment");
+        window.location.href = 'search-user.html';
+
         return false;
-   }
+    }
+
+function advancedsearch() {
+    let keyword = document.getElementById("searchadvanced").value.trim();
+
+    if (keyword === "") return false;
+
+    alert("Please wait for a moment");
+
+    // CHUYỂN TRANG THỦ CÔNG
+    window.location.href = "search-user.html?keyword=" + encodeURIComponent(keyword);
+
+    return false;
+}
+   
 </script>
 <body>
   
@@ -51,11 +62,26 @@
           </li>
          
         </ul>
-        <form action="" class="d-flex" onsubmit="search()">
-            
-          <input class="form-control" type="text" placeholder="Search" id="searchInput"   value size="40" required > 
-          <button class="input-group-text" type="submit"> <img src="icons/search.svg" ></button>
-        </form>
+        <form class="d-flex flex-row" onsubmit="return advancedsearch()">
+    <input class="form-control" type="text" placeholder="Advanced Search" id="searchadvanced" required> 
+    <button class="input-group-text" type="submit">
+        <img src="icons/search.svg">
+    </button>
+
+    <select class="form-select">
+      <option selected>Price</option>
+      <option value="1">$400-$1,000</option>
+      <option value="2">$1,000-$4,000</option>
+      <option value="3">$4,000+</option>
+    </select>
+
+    <select class="form-select">
+      <option selected>Coin</option>
+      <option value="1">Kaspa</option>
+      <option value="2">ETH/ETC</option>
+      <option value="3">BTC/BCH</option>
+    </select>
+</form>
 
       </div>
       <div class="navbar-brand">

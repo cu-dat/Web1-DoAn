@@ -47,11 +47,22 @@
           </li>
          
         </ul>
-        <form action="" class="d-flex" onsubmit="search()">
-            
-          <input class="form-control" type="text" placeholder="Search" id="searchInput"   value size="40" required > 
-          <button class="input-group-text" type="submit"> <img src="icons/search.svg" ></button>
-        </form>
+        <form class="d-flex flex-row" onsubmit="advancedsearch()">
+    <input class="form-control" type="text" placeholder="Advanced Search" id="searchadvanced"   value size="20" required > 
+    <button class="input-group-text" type="submit"> <img src="icons/search.svg" ></button>
+    <select class="form-select" aria-label="Default select example">
+      <option selected>Price</option>
+      <option value="1">$400-$1,000</option>
+      <option value="2">$1,000-$4,000</option>
+      <option value="3">$4,000+</option>
+    </select>
+    <select class="form-select" aria-label="Default select example">
+      <option selected>Coin</option>
+      <option value="1">Kaspa</option>
+      <option value="2">ETH/ETC</option>
+      <option value="3">BTC/BCH</option>
+    </select>
+    </form>
       </div>
       <div class="navbar-brand ms-auto">
       <a class="navbar-brand " href="signup.html">
@@ -79,23 +90,7 @@
     <h1 class="text-center text-decoration-underline">Result</h1>
   
    
-      <form class="d-flex flex-row" onsubmit="advancedsearch()">
-    <input class="form-control" type="text" placeholder="Advanced Search" id="searchadvanced"   value size="20" required > 
-    <button class="input-group-text" type="submit"> <img src="icons/search.svg" ></button>
-    <select class="form-select" aria-label="Default select example">
-      <option selected>Price</option>
-      <option value="1">$400-$1,000</option>
-      <option value="2">$1,000-$4,000</option>
-      <option value="3">$4,000+</option>
-    </select>
-    <select class="form-select" aria-label="Default select example">
-      <option selected>Coin</option>
-      <option value="1">Kaspa</option>
-      <option value="2">ETH/ETC</option>
-      <option value="3">BTC/BCH</option>
-    </select>
-    </form>
-    <div class="row">
+        <div class="row">
         <div class="col-sm-4 mt-3">
             <div class="card shadow p-3 mb-5 rounded">
                <a class="card-link" href="JX16P.html"> <img src="img/JX16P.png" class="card-img-top" alt="JASMINER X16-P"></a>

@@ -2,71 +2,159 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Login Page </title>
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/login.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/login.css">
+  <style>
+    /* Thêm CSS cần thiết cho modal */
+    .forgot-password {
+      text-align: right;
+      margin-top: 10px;
+    }
+
+    .forgot-password a {
+      color: #007bff;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .forgot-password a:hover {
+      text-decoration: underline;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 10;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-content {
+      background: #fff;
+      width: 300px;
+      margin: 15% auto;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .modal-content input {
+      width: 90%;
+      margin-bottom: 10px;
+      padding: 8px;
+    }
+
+    .modal-content button {
+      margin: 5px;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 6px;
+      background: #007bff;
+      color: white;
+      cursor: pointer;
+    }
+
+    .modal-content button#close-modal {
+      background: #999;
+    }
+  </style>
 </head>
 
 <body>
-    <div class="container">
-        <div class="design" style="align-items:center;">
-            <img src="imgs/Skywind.ico" alt="" >
-        </div>
-        <form action="Admin.html" method="post" id="login-form">
-            <div class="login">
-                <h3 class="title">Admin Login</h3>
-                <div class="text-input">
-                    <i class="ri-user-fill"></i>
-                    <input type="text" placeholder="Username" id="login-username" autocomplete="off" required>
-                </div>
-                <div class="text-input">
-                    <i class="ri-lock-fill"></i>
-                    <input type="password" placeholder="Password" id="login-password"required>
-                </div>
-                <button class="login-btn">LOGIN </button>
-                
-                
-            </div>
-        </form>
+  <div class="container">
+    <div class="design" style="align-items:center;">
+      <img src="imgs/Skywind.ico" alt="">
     </div>
-    <script>
-      
-      document.addEventListener("DOMContentLoaded", function () {
-      var loginForm = document.getElementById("login-form");
-  
+    <form id="login-form">
+      <div class="login">
+        <h3 class="title">Admin Login</h3>
+        <div class="text-input">
+          <i class="ri-user-fill"></i>
+          <input type="text" placeholder="Username" id="login-username" autocomplete="off" required>
+        </div>
+        <div class="text-input">
+          <i class="ri-lock-fill"></i>
+          <input type="password" placeholder="Password" id="login-password" required>
+        </div>
+        <button type="submit" class="login-btn">LOGIN</button>
+        <p class="forgot-password">
+          <a href="#" id="forgot-link">Forgot password?</a>
+        </p>
+      </div>
+    </form>
+  </div>
+
+  <!-- Modal Reset Password -->
+  <div id="reset-modal" class="modal">
+    <div class="modal-content">
+      <h3>Reset Password</h3>
+      <p>Enter your email to reset your password:</p>
+      <input type="email" id="reset-email" placeholder="Enter your email" required>
+      <button id="reset-btn">Send Reset Link</button>
+      <button id="close-modal">Cancel</button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const loginForm = document.getElementById("login-form");
+      const forgotLink = document.getElementById("forgot-link");
+      const modal = document.getElementById("reset-modal");
+      const closeModal = document.getElementById("close-modal");
+      const resetBtn = document.getElementById("reset-btn");
+
+      // ✅ Xử lý đăng nhập
       loginForm.addEventListener("submit", function (event) {
-      console.log("Biểu mẫu đăng nhập được gửi");  // Thêm dòng này
-      event.preventDefault();  // Ngăn chặn biểu mẫu gửi đi tạm thời
-  
-      // Kiểm tra tên đăng nhập và mật khẩu đã nhập
-      var enteredUsername = document.getElementById("login-username").value;
-      var enteredPassword = document.getElementById("login-password").value;
-  
-      console.log("Tên đăng nhập:", enteredUsername);  // Thêm dòng này
-      console.log("Mật khẩu:", enteredPassword);
-  
-      // Phần còn lại của logic xác thực...
-    });
-  
-      loginForm.addEventListener("submit", function (event) {
-        // Check the entered username and password
-        var enteredUsername = document.getElementById("login-username").value;
-        var enteredPassword = document.getElementById("login-password").value;
-  
-        // Replace this with your actual validation logic
+        event.preventDefault();
+
+        const enteredUsername = document.getElementById("login-username").value;
+        const enteredPassword = document.getElementById("login-password").value;
+
         if (enteredUsername === "admin" && enteredPassword === "123") {
-          // Redirect to index.html
-          alert("Welcome admin");  
+          alert("Welcome admin");
           window.location.href = "Admin.html";
         } else {
-          // Display an error message or handle the incorrect credentials
           alert("Username or password incorrect");
         }
       });
+
+      // ✅ Hiển thị modal reset password
+      forgotLink.addEventListener("click", function (event) {
+        event.preventDefault();
+        modal.style.display = "block";
+      });
+
+      // ✅ Đóng modal
+      closeModal.addEventListener("click", function () {
+        modal.style.display = "none";
+      });
+
+      // ✅ Gửi email reset password (demo)
+      resetBtn.addEventListener("click", function () {
+        const email = document.getElementById("reset-email").value.trim();
+        if (email) {
+          alert("A reset link has been sent to " + email);
+          modal.style.display = "none";
+        } else {
+          alert("Please enter a valid email address");
+        }
+      });
+
+      // ✅ Click ngoài vùng modal để đóng
+      window.addEventListener("click", function (event) {
+        if (event.target === modal) {
+          modal.style.display = "none";
+        }
+      });
     });
-      </script>
+  </script>
 </body>
+
 </html>

@@ -8,14 +8,32 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
 <script>
-  function search() {
-       var searchValue = document.getElementById("searchInput").value;
-       window.location.href='search.html';
-       alert("Please wait for a moment")
-       return false;
-  }
- 
+    function search() {
+        var searchValue = document.getElementById("searchInput").value.trim();
+
+        // Lưu từ khóa
+        localStorage.setItem("searchKeyword", searchValue);
+
+        alert("Please wait for a moment");
+        window.location.href = 'search.html';
+
+        return false;
+    }
+
+function advancedsearch() {
+    let keyword = document.getElementById("searchadvanced").value.trim();
+
+    if (keyword === "") return false;
+
+    alert("Please wait for a moment");
+
+    // CHUYỂN TRANG THỦ CÔNG
+    window.location.href = "search.html?keyword=" + encodeURIComponent(keyword);
+
+    return false;
+}
 </script>
+
 <body>
   <nav class="navbar navbar-expand-lg bg-body-tertiary ">
     <div class="container-fluid">
@@ -43,11 +61,27 @@
           </li>
          
         </ul>
-        <form action="" class="d-flex" onsubmit="search()">
-            
-          <input class="form-control" type="text" placeholder="Search" id="searchInput"   value size="40" required > 
-          <button class="input-group-text" type="submit"> <img src="icons/search.svg" ></button>
-        </form>
+        <form class="d-flex flex-row" onsubmit="return advancedsearch()">
+    <input class="form-control" type="text" placeholder="Advanced Search" id="searchadvanced" required> 
+    <button class="input-group-text" type="submit">
+        <img src="icons/search.svg">
+    </button>
+
+    <select class="form-select">
+      <option selected>Price</option>
+      <option value="1">$400-$1,000</option>
+      <option value="2">$1,000-$4,000</option>
+      <option value="3">$4,000+</option>
+    </select>
+
+    <select class="form-select">
+      <option selected>Coin</option>
+      <option value="1">Kaspa</option>
+      <option value="2">ETH/ETC</option>
+      <option value="3">BTC/BCH</option>
+    </select>
+</form>
+
       </div>
       <div class="navbar-brand ms-auto">
       <a class="navbar-brand " href="signup.html">
@@ -57,12 +91,11 @@
         </a>
        </div>
        <div class="navbar-brand">
-      <a class="navbar-brand" href=""  >
-        <svg src="icons/cart2.svg" width="27" height="27" fill="currentColor" class="bi bi-cart2" viewBox="0 0 16 16">
-          <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
-        </svg>
-        </a>
-      </div>
+  <a class="navbar-brand" href="login.html">
+    <img src="icons/cart2.svg" width="27" height="27" alt="Cart">
+  </a>
+</div>
+
     </div>
   </nav>
 
